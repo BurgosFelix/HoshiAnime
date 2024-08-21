@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アニメストリーミングウェブサイト</title>
+
+<!-- Swiper.js -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+<!-- Fork Awesome CDN リンク -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css"
+integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+
+<!-- CSS スタイルシート -->
+<link rel="stylesheet" href="style.css">
+<!-- CSS for the Modal -->
+<style>
+  /* Modal container */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+  }
+
+  /* Modal content */
+  .modal-content {
+    background-color: #282c34;
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 30px; /* Increased padding */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 20px; /* Larger font size */
+    line-height: 1.6; /* Increased line spacing for better readability */
+  }
+
+  /* Close button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Explore button */
+  #exploreButton {
+    background-color: #ff4500;
+    color: white;
+    padding: 15px 30px; /* Increased padding for larger button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Larger font size for button */
+    margin-top: 20px;
+  }
+
+  #exploreButton:hover {
+    background-color: #ff6347;
+  }
+</style>
+</head>
+
+<body>
+  <!-- Modal HTML Structure -->
+<div id="animeModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>アニメの世界へようこそ！</h2>
+    <p>
+      アニメはただのエンターテイメントではありません。それは感動、冒険、そして新たな友達との出会いです。このサイトでは、あなたの好きなアニメを見つけ、共に楽しむ仲間を見つけましょう。
+    </p>
+    <p>
+      各ジャンルやシリーズについてもっと知りたいですか？それとも新しい作品を探していますか？ここでは、すべてのアニメファンが楽しめるコンテンツが満載です。
+    </p>
+    <button id="exploreButton">今すぐ探検する</button>
+  </div>
+</div>
+<!-- HEADER::START -->
+<header id="main-header">
+<div class="icons">
+<i class="fa fa-bars" id="menu-bars"></i>
+</div>
+
+<div class="overlay" id="menu-overlay"></div>
+<div class="side-menu" id="side-menu">
+<button class="btn" id="menu-close-button"><i class="fa fa-angle-left" aria-hidden="true"></i>メニューを閉じる</button>
+
+<div class="side-menu-icons-container" id="side-menu-icons">
+<div class="container">
+<i class="fa fa-users" aria-hidden="true" title="友達と一緒に見る"></i>
+<p>Watch2gether</p>
+</div>
+<div class="container">
+<i class="fa fa-random" aria-hidden="true" title="ランダムアニメを見る"></i>
+<p>ランダム</p>
+</div>
+</div>
+
+<button class="btn" id="community-button"><i class="fa fa-comments" aria-hidden="true"></i>コミュニティ</button>
+
+<div class="links">
+<p>ホーム</p>
+<p>字幕付きアニメ</p>
+<p>吹き替えアニメ</p>
+<p>人気作品</p>
+<p>映画</p>
+<p>TVシリーズ</p>
+<p>OVA</p>
+<p>ONA</p>
+<p>スペシャル</p>
+<p>イベント</p>
+</div>
+<div class="genre-section">
+<h1>ジャンルで検索</h1>
+<div class="genre-column">
+<p id="action">アクション</p>
+<p id="adventure">アドベンチャー</p>
+<p id="martial-arts">格闘技</p>
+<p id="comedy">コメディ</p>
+<p id="suspense">サスペンス</p>
+<p id="demons">悪魔</p>
+<p id="drama">ドラマ</p>
+<p id="ecchi">エッチ</p>
+<p id="fantasy">ファンタジー</p>
+<p id="horror">ホラー</p>
+</div>
+
+<div class="genre-column">
+<p id="mecha">メカ</p>
+<p id="slice-of-life">スライス オブ ライフ</p>
+<p id="isekai">異世界</p>
+<p id="idol">アイドル</p>
+<p id="psychological">心理学</p>
+<p id="romance">恋愛</p>
+<p id="sci-fi">SF</p>
+<p id="supernatural">超自然</p>
+<p id="mystery">ミステリー</p>
+<p id="magic">魔法</p>
+</div>
+</div>
+</div>
+
+<a href="#" class="logo"><i class="fa fa-star" aria-hidden="true"></i> 星</a>
+
+<div class="search-container">
+<input type="search" placeholder="アニメを検索...">
+<span class="search-addon">
+<i class="fa fa-search" aria-hidden="true"></i>
+<a class="filter-btn">フィルター</a>
+</span>
+</div>
+
+<div class="social-media-text">
+<p>今すぐ参加</p>
+</div>
+<div class="icons" id="social-media-icons">
+<i class="fa fa-search" id="search-icon"></i>
+<i class="fa fa-discord" id="discord-icon"></i>
+<i class="fa fa-telegram" id="telegram-icon"></i>
+<i class="fa fa-reddit" id="reddit-icon"></i>
+<i class="fa fa-twitter" id="twitter-icon"></i>
+</div>
+
+<div class="icons-container" id="c1">
+<i class="fa fa-users" aria-hidden="true" title="一緒に見る友達"></i>
+<p>Watch2gether</p>
+</div>
+
+<div class="icons-container" id="c2">
+<i class="fa fa-random" aria-hidden="true" title="ランダムアニメを見る"></i>
+<p>ランダム</p>
+</div>
+
+<div class="icons-container" id="c3">
+<i class="fa fa-comments" aria-hidden="true" title="お気に入りの番組についてチャットする"></i>
+<p>コミュニティ</p>
+</div>
+
+<button class="btn" id="login-button">ログイン</button>
+</header>
+<!-- HEADER::END -->
+
+<!-- LOGIN-WINDOW::START -->
+<div class="overlay" id="login-overlay"></div>
+<div class="login-window" id="login-window">
+<div class="login-content">
+<h2>ようこそ！</h2>
+<form id="display-form">
+<label for="email" id="lb-email">メールアドレス</label><br>
+<input type="email" id="email" name="email" autocomplete="off"><br>
+<label for="password" id="lb-password">パスワード</label><br>
+<input type="password" id="password" name="password"><br>
+<input type="checkbox" id="remember-checkbox" name="remember-checkbox">
+<label for="remember-checkbox">ログイン情報を記憶する</label>
+<a id="forgot-password">パスワードを忘れましたか？</a><br>
+<input type="submit" value="login" id="login-submit-button"><br>
+<label>アカウントをお持ちではありませんか？ </label><a id="register-button"> 登録</a><br>
+</form>
+<i id="login-close-button" class="fa fa-window-close"></i>
+</div>
+</div>
+<!-- LOGIN-WINDOW::END -->
+
+<!-- HOME::START -->
+<section class="home" id="home">
+  <div class="swiper home-slider">
+  <div class="swiper-wrapper">
+  
+  <div class="swiper-slide">
+  <div class="box">
+  <div class="content">
+  <h1>#1 スポットライト</h1>
+  <h3>進撃の巨人</h3>
+  <p> 物語は、エレン・イェーガーとその友人のミカサとアルミンが軍隊に加わって巨人と戦い、彼らの謎めいた起源と彼らが住む城壁都市の背後にある秘密についての真実を明らかにするところから始まります。</p>
+  <a href="#" class="btn"><i class="fa fa-play-circle" aria-hidden="true"></i>今すぐ見る</a>
+  <a href="#" class="detail-btn">詳細<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  </div>
+  </div>
+  <div class="image-container" id="aot-slide"></div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box second">
+  <div class="content">
+  <h1>#2 スポットライト</h1>
+  <h3>鋼の錬金術師 FULLMETAL ALCHEMIST</h3>
+  <p> エドワードとアルフォンス・エルリックの兄弟は、錬金術の実験に失敗した後、賢者の石を探すために錬金術を使います。
+  彼らの旅は、政治的陰謀、道徳的ジレンマ、そして暗い秘密が渦巻く複雑な世界を明らかにします。</p>
+  <a href="#" class="btn"><i class="fa fa-play-circle" aria-hidden="true"></i>今すぐ見る</a>
+  <a href="#" class="detail-btn">詳細<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  </div>
+  </div>
+  <div class="image-container" id="fma-slide"></div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box third">
+  <div class="content">
+  <h1>#3 スポットライト</h1>
+  <h3>デスノート</h3>
+  <p> 物語は、夜神月という名の高校生が、名前を書くだけで誰でも殺せる超自然的なノートを発見するところから始まります。 </p>
+  <a href="#" class="btn"><i class="fa fa-play-circle" aria-hidden="true"></i>今すぐ見る</a>
+  <a href="#" class="detail-btn">詳細<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  </div>
+  </div>
+  <div class="image-container" id="death-note-slide"></div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box fourth">
+  <div class="content">
+  <h1>#4 スポットライト</h1>
+  <h3>ワンパンマン</h3>
+  <p> どんな敵も一撃で倒せるヒーロー、サイタマの人生を描きます。
+  自身の圧倒的な強さに飽き飽きしたサイタマは、ますます奇妙で強力な悪者で満たされた世界に直面しながら、挑戦的な戦いを求めます。</p>
+  <a href="#" class="btn"><i class="fa fa-play-circle" aria-hidden="true"></i>今すぐ見る</a>
+  <a href="#" class="detail-btn">詳細<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  </div>
+  </div>
+  <div class="image-container" id="opm-slide"></div>
+  </div>
+  
+  </div>
+  <div class="swiper-pagination"></div>
+  </div>
+  </section>
+  <!-- HOME::END -->
+  
+  <!-- MOST-POPULAR::START -->
+  <section class="anime-box" id="most-popular">
+  <h1 class="heading">最も人気</h1>
+  
+  <div class="swiper-navigation-popular">
+  <div class="swiper-button-next" id="popular-button-next"></div>
+  <div class="swiper-button-prev" id="popular-button-prev"></div>
+  </div>
+  
+  <div class="swiper trending-slider">
+  <div class="swiper-wrapper">
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/naruto.jpg) no-repeat;">
+  </div>
+  <div class="content">
+  <h3>ナルト</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/kimetsu-no-yaiba.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>鬼滅の刃</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/sword-art-online.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>ソードアート・オンライン</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/tokyo-ghoul.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>東京喰種トーキョーグール</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/hunterxhunter2011.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>ハンター×ハンター (2011)</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/steins-gate.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>シュタインズ・ゲート</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/boku-no-hero-academia.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>僕のヒーローアカデミア</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/jujutsu-kaisen.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>呪術廻戦</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/one-piece.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>ワンピース</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/re-zero.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>Re:ゼロから始める異世界生活</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/noragami.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>ノラガミ</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/akame-ga-kill.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>アカメが斬る!</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/nanatsu-no-taizai.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>七つの大罪</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/mirai-nikki.png) no-repeat;"></div>
+  <div class="content">
+  <h3>未来日記</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/bleach.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>Bleach</h3>
+  </div>
+  </div>
+  
+  <div class="swiper-slide">
+  <div class="box" style="background: url(imgs/death-parade.jpg) no-repeat;"></div>
+  <div class="content">
+  <h3>Death Parade</h3>
+  </div>
+  </div>
+  
+  </div>
+  </div>
+  
+  </section>
+  <!-- MOST-POPULAR::END -->
+  
+  <!-- SHARE-GIF::START -->
+  <section class="share-section">
+  <div class="inline-elements">
+  <img src="imgs/share.png" alt="" id="share-img">
+  <div class="text-content">
+  <h1>共有山</h1>
+  <p>お友達に！</p>
+  </div>
+  </section>
+  <!-- SHARE-GIF::END -->
+  
+  <!-- MAIN-CATEGORIES::START -->
+  <section class="main-categories">
+  <div id="tv-series" class="category">
+  <h1>TV シリーズ</h1>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/gintama.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>銀魂</p>
+  <p id="show-info-1">2016</p>
+  <p id="show-info-2">51 話</p>
+  <p>銀魂は侍が異星人と戦いながらも笑いと涙を届ける破天荒な物語</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/monster.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>モンスター</p>
+  <p id="show-info-1">2005</p>
+  <p id="show-info-2">74 EPS</p>
+  <p>正義と狂気が交錯する追跡劇の果てに真実が待つ</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/bocchi-the-rock.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>ぼっちザロック！</p>
+  <p id="show-info-1">2022</p>
+  <p id="show-info-2">12 EPS</p>
+  <p>音楽で繋がる友情と成長の物語</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/oshi-no-ko.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>推しの子</p>
+  <p id="show-info-1">2023</p>
+  <p id="show-info-2">11 EPS</p>
+  <p>芸能界の闇と光を描く運命のサスペンス</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/vinland-saga.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>ヴィンランド・サガ</p>
+  <p id="show-info-1">2019</p><p id="show-info-2">24 エピソード</p>
+  <p>復讐と赦しが交差する壮大な歴史絵巻</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/mob-psycho-100.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>モブサイコ100</p>
+<p id="show-info-1">2016</p>
+<p id="show-info-2">12 エピソード</p>
+<p>超能力者の成長と自己発見のバトルライフ</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/hajime-no-ippo.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>はじめの一歩</p>
+<p id="show-info-1">2002</p>
+<p id="show-info-2">75 EPS</p>
+</div>
+</div>
+
+<div class="show-additional">
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/cowboy-bebop.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>カウボーイビバップ</p>
+<p id="show-info-1">1999</p>
+<p id="show-info-2">26 EPS</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/made-in-abyss.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>メイドインアビス</p>
+<p id="show-info-1">2017</p>
+<p id="show-info-2">13 EPS</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/saiki-kusuo-no-psi-nan.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>斉木楠雄のΨ難</p>
+<p id="show-info-1">2016</p>
+<p id="show-info-2">120 EPS</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/kaguya-sama-love-is-war.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>かぐや様は告らせたい</p>
+<p id="show-info-1">2019</p>
+<p id="show-info-2">12 話</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/Mushi-shi.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>蟲師</p>
+<p id="show-info-1">2006</p>
+<p id="show-info-2">26 話</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/haikyuu.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>ハイキュー!!</p>
+<p id="show-info-1">2014</p>
+<p id="show-info-2">25 EPS</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/guren-lagann.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>天元突破グレンラガン</p>
+<p id="show-info-1">2007</p>
+<p id="show-info-2">27 EPS</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/Berserk.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>ベルセルク</p>
+<p id="show-info-1">1998</p>
+<p id="show-info-2">25 EPS</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/fruits-basket-final-season.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>フルーツバスケット The Final Season</p>
+<p id="show-info-1">2021</p>
+<p id="show-info-2">13 エピソード</p>
+</div>
+</div>
+</div>
+
+<button class="view-more view-more-1">+ もっと見る</button>
+
+</div>
+
+<div id="movies" class="category">
+<h1>映画</h1>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/koe-no-katachi.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>聲の形</p>
+<p id="show-info-1">2016</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/kimi-no-nawa.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>あなたの名前</p>
+<p id="show-info-1">2016</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/spirited-away.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>千と千尋の神隠し</p>
+<p id="show-info-1">2001</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/princess-mononoke.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>もののけ姫</p>
+<p id="show-info-1">1997</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/the-end-of-evangelion.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>エヴァンゲリオン劇場版</p>
+<p id="show-info-1">1997</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/k-on-movie.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>けいおん！映画</p>
+<p id="show-info-1">2011</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/gintama-the-very-final.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>銀魂 THE FINAL</p>
+<p id="show-info-1">2021</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show-additional">
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/violet-evergarden-the-movie.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>ヴァイオレット・エヴァーガーデン: 劇場版</p>
+<p id="show-info-1">2020</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/the-first-slam-dunk.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>最初のスラムダンク</p>
+<p id="show-info-1">2022</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/kizumonogatari-3.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+<p>傷物語 パート 3: 冷血</p>
+<p id="show-info-1">2017</p>
+<p id="show-info-2">CC & DUB</p>
+</div>
+</div>
+
+<div class="show">
+<div class="show-image-container">
+<img src="imgs/howls-moving-castle.jpg" alt="">
+<div class="show-image-overlay">
+<i class="fa fa-play" aria-hidden="true"></i>
+</div>
+</div>
+<div class="text-info">
+  <p>ハウルの動く城</p>
+  <p id="show-info-1">2004</p>
+  <p id="show-info-2">CC & DUB</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/seishun-buta-yarou.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>青春ブタ野郎はゆめみる少女の夢を見ない 劇場版</p>
+  <p id="show-info-1">2019</p>
+  <p id="show-info-2">CC & DUB</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/the-disappearance-of-haruhi-suzumiya.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>涼宮ハルヒの消失</p>
+  <p id="show-info-1">2010</p>
+  <p id="show-info-2">CC & DUB</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/wolf-children.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>おおかみこどもの雨と雪</p>
+  <p id="show-info-1">2012</p>
+  <p id="show-info-2">CC & DUB</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/revue-starlight.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>少女☆歌劇 レヴュースタァライト</p>
+  <p id="show-info-1">2021</p>
+  <p id="show-info-2">CC & DUB</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/grave-of-the-fireflies.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>火垂るの墓</p>
+  <p id="show-info-1">1988</p>
+  <p id="show-info-2">CC & DUB</p>
+  </div>
+  </div>
+  </div>
+  
+  <button class="view-more view-more-2">+ もっと見る</button>
+  
+  </div>
+  
+  <div id="top-airing" class="category">
+  <h1>トップ放送</h1>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/shingeki-no-kyojin-final-season.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>進撃の巨人: The Final Season</p>
+  <p id="show-info-1">2023</p>
+  <p id="show-info-2">2 話</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/bleach-thousand-year-blood-war.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>BLEACH 千年血戦篇</p>
+  <p id="show-info-1">2022</p>
+  <p id="show-info-2">13 話</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/jujutsu-kaisen-season-2.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>呪術廻戦 シーズン 2</p>
+  <p id="show-info-1">2023</p>
+  <p id="show-info-2">23 エピソード</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/bungou-stray-dogs-s5.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>文豪ストレイドッグス 5</p>
+  <p id="show-info-1">2023</p>
+  <p id="show-info-2">11 エピソード</p>
+  </div>
+  </div>
+  
+  <div class="show">
+  <div class="show-image-container">
+  <img src="imgs/mushoku-tensei-s2.jpg" alt="">
+  <div class="show-image-overlay">
+  <i class="fa fa-play" aria-hidden="true"></i>
+  </div>
+  </div>
+  <div class="text-info">
+  <p>無職転生 シーズン 2</p>
+  <p id="show-info-1">2023</p>
+  <p id="show-info-2">12 話</p>
+  </div>
+  </div>
+  
+  <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/detective-conan.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>事件解決</p>
+    <p id="show-info-1">1996</p>
+    <p id="show-info-2">1075+ EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/zom-100-bucket-list-of-dead.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>Zom 100: Bucket List of the Dead</p>
+    <p id="show-info-1">2023</p>
+    <p id="show-info-2">12 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show-additional">
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/undead-girl-murder-farce.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>Undead Murder Farce</p>
+    <p id="show-info-1">2023</p>
+    <p id="show-info-2">13 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/crayon-shin-chan.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>クレヨンしんちゃん</p>
+    <p id="show-info-1">1992</p>
+    <p id="show-info-2">1219+ EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/sugar-apple-fairy-tale-p2.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>シュガーアップルフェアリーテイルパート2</p>
+    <p id="show-info-1">2023</p>
+    <p id="show-info-2">12 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/rurouni-kenshin.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>るろうに剣心: 明治剣客浪漫譚</p>
+    <p id="show-info-1">2023</p>
+    <p id="show-info-2">24 エピソード</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/hirogaru-sky-precure.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>そらる！プリキュア</p>
+    <p id="show-info-1">2023</p>
+    <p id="show-info-2">19 話</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/shinigami-bocchan-to-kuro-maid-2nd-season.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>死神公爵とメイドさん</p>
+    <p id="show-info-1">2023</p>
+    <p id="show-info-2">12 話</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/doraemon.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>ドラえもん</p>
+    <p id="show-info-1">1979</p>
+    <p id="show-info-2">1787 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/fate-grand-order.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>Fate/Grand Order</p>
+    <p id="show-info-1">2014</p>
+    <p id="show-info-2">21 エピソード</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/pokemon-2023.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>ポケモン ホライゾンズ: ザ シリーズ</p><p id="show-info-1">2023</p>
+    <p id="show-info-2">24 話</p>
+    </div>
+    </div>
+    </div>
+    
+    <button class="view-more view-more-3">+ もっと見る</button>
+    
+    </div>
+    
+    <div id="completed" class="category">
+    <h1>完結したアニメ</h1>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/the-idolmaster.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>アイドルマスター</p>
+    <p id="show-info-1">2011</p>
+    <p id="show-info-2">25 エピソード</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/the-perfect-insider.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>パーフェクト インサイダー</p>
+    <p id="show-info-1">2015</p>
+    <p id="show-info-2">11 エピソード</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/youkai-watch.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>妖怪ウォッチ</p>
+    <p id="show-info-1">2014</p>
+    <p id="show-info-2">214 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/the-promised-neverland.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>約束のネバーランド</p>
+    <p id="show-info-1">2019</p>
+    <p id="show-info-2">12 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/the-god-of-highschool.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>ザ・ゴッド・オブ・ハイスクール</p>
+    <p id="show-info-1">2020</p>
+    <p id="show-info-2">13 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/unlimited-psychic-squad.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>アンリミテッド サイキック スクワッド</p>
+    <p id="show-info-1">2013</p>
+    <p id="show-info-2">12 エピソード</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/handa-kun.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>はんだくん</p>
+    <p id="show-info-1">2016</p>
+    <p id="show-info-2">12 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show-additional">
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/sakamoto-desu-ga.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>坂本ですが？</p>
+    <p id="show-info-1">2016</p>
+    <p id="show-info-2">12 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/the-helpful-fox-senku-san.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>世話やきキツネの仙狐さん</p>
+    <p id="show-info-1">2019</p>
+    <p id="show-info-2">12 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/astro-boy.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+    <p>鉄腕アトム</p>
+    <p id="show-info-1">2003</p>
+    <p id="show-info-2">50 EPS</p>
+    </div>
+    </div>
+    
+    <div class="show">
+    <div class="show-image-container">
+    <img src="imgs/dragon-ball-z.jpg" alt="">
+    <div class="show-image-overlay">
+    <i class="fa fa-play" aria-hidden="true"></i>
+    </div>
+    </div>
+    <div class="text-info">
+      <p>ドラゴンボールZ</p>
+      <p id="show-info-1">1989</p>
+      <p id="show-info-2">291 EPS</p>
+      </div>
+      </div>
+      
+      <div class="show">
+      <div class="show-image-container">
+      <img src="imgs/digimon-frontier.jpg" alt="">
+      <div class="show-image-overlay">
+      <i class="fa fa-play" aria-hidden="true"></i>
+      </div>
+      </div>
+      <div class="text-info">
+      <p>デジモンフロンティア</p>
+      <p id="show-info-1">2002</p>
+      <p id="show-info-2">50 EPS</p>
+      </div>
+      </div>
+      
+      <div class="show">
+      <div class="show-image-container">
+      <img src="imgs/overlord.jpg" alt="">
+      <div class="show-image-overlay">
+      <i class="fa fa-play" aria-hidden="true"></i>
+      </div>
+      </div>
+      <div class="text-info">
+      <p>オーバーロード</p>
+      <p id="show-info-1">2015</p>
+      <p id="show-info-2">12 EPS</p>
+      </div>
+      </div>
+      
+      <div class="show">
+      <div class="show-image-container">
+      <img src="imgs/tokyo-revengers.jpg" alt="">
+      <div class="show-image-overlay">
+      <i class="fa fa-play" aria-hidden="true"></i>
+      </div>
+      </div>
+      <div class="text-info">
+      <p>東京リベンジャーズ</p>
+      <p id="show-info-1">2021</p>
+      <p id="show-info-2">24 エピソード</p>
+      </div>
+      </div>
+      
+      <div class="show">
+      <div class="show-image-container">
+      <img src="imgs/red-baron.jpg" alt="">
+      <div class="show-image-overlay">
+      <i class="fa fa-play" aria-hidden="true"></i>
+      </div>
+      </div>
+      <div class="text-info">
+      <p>レッドバロン</p>
+      <p id="show-info-1">1994</p>
+      <p id="show-info-2">49 エピソード</p>
+      </div>
+      </div>
+      
+      <div class="show">
+      <div class="show-image-container">
+      <img src="imgs/kuroko-no-basket.jpg" alt="">
+      <div class="show-image-overlay">
+      <i class="fa fa-play" aria-hidden="true"></i>
+      </div>
+      </div>
+      <div class="text-info">
+      <p>黒子のバスケ</p>
+      <p id="show-info-1">2012</p>
+      <p id="show-info-2">25 EPS</p>
+      </div>
+      </div>
+      </div>
+      
+      <button class="view-more view-more-4">+ もっと見る</button>
+      
+      </div>
+      </section>
+      <!-- MAIN-CATEGORIES::END-->
+      
+      <!-- SCROW-TO-TOP-ARROW::START -->
+      <button id="scrollToTop" title="先頭へ">
+      <i class="fa fa-angle-up"></i>
+      </button>
+      <!-- SCROW-TO-TOP-ARROW::END -->
+      
+      <!-- Swiper.js を含める -->
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      
+      <!-- 独自の .js ファイル -->
+      <script src="script.js"></script>
+      <!-- JavaScript to control the Modal -->
+<!-- JavaScript to control the Modal -->
+<script>
+  // Get the modal
+  var modal = document.getElementById("animeModal");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // Get the button that triggers the explore action (optional functionality)
+  var exploreButton = document.getElementById("exploreButton");
+
+  // Show the modal when the page loads
+  window.onload = function() {
+    modal.style.display = "block";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  };
+
+  // Optional: When the user clicks the explore button, close the modal
+  exploreButton.onclick = function() {
+    modal.style.display = "none";
+    // Optionally, you can add code here to redirect to a different page or section
+  };
+
+  // Close the modal if the user clicks anywhere inside the modal
+  modal.onclick = function(event) {
+    modal.style.display = "none";
+  };
+</script>
+      </body>
+      
+      </html>
