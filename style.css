@@ -184,6 +184,7 @@ header {
 }
 
 .menu-active {
+  position: fixed;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -196,6 +197,7 @@ header {
 
 #menu-overlay {
   display: none;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -206,6 +208,7 @@ header {
 }
 
 .side-menu {
+  position: fixed;
   top: 0;
   left: -250px;
   width: 250px;
@@ -554,6 +557,7 @@ header .icons a:hover{
 /* LOGIN::START */
 #login-overlay {
   display: none;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -569,6 +573,7 @@ header .icons a:hover{
 .login-window {
   z-index: 100000;
   display: flex;
+  position: fixed;
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(3px);
@@ -1055,6 +1060,7 @@ header .icons a:hover{
 /* SCROLL-TO-TOP-ARROW::START */
 #scrollToTop {
   display: none;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   font-size: 20px;
