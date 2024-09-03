@@ -29,7 +29,6 @@ integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="ano
 <style>
   /* Modal container */
   .modal {
-    display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top */
     left: 0;
@@ -1391,11 +1390,6 @@ integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="ano
 
   // Get the button that triggers the explore action (optional functionality)
   var exploreButton = document.getElementById("exploreButton");
-
-  // Show the modal when the page loads
-  window.onload = function() {
-    modal.style.display = "block";
-  };
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
